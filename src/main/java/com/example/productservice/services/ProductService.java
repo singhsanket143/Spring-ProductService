@@ -1,6 +1,7 @@
 package com.example.productservice.services;
 
 import com.example.productservice.models.Product;
+import org.springframework.stereotype.Service;
 
 /**
  *
@@ -10,6 +11,7 @@ import com.example.productservice.models.Product;
  * This happens a lot of times because our business logic changes, and we cannot immediately migrate our business logic
  * usage everywhere.
  */
+@Service
 public interface ProductService {
 
     Product getProductById(Long id);
