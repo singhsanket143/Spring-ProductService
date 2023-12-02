@@ -1,10 +1,12 @@
 package com.example.productservice.controllers;
 
 import com.example.productservice.services.ProductService;
+import com.example.productservice.viewModels.GenericProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,13 +31,13 @@ public class ProductController {
     }
 
     @GetMapping
-    public String getProducts() {
-        return "Received a request for a products" + this.getProductService().getProductById((Long) (10L));
+    public GenericProductDto getProducts() {
+        return this.getProductService().getProductById((Long) (10L));
     }
 
-    @GetMapping("/{id}")
-    public String getProductById(@PathVariable("id") Long id) {
-        return "Received a request for a product with id: " + id;
+    @GetMapping( "/{id}")
+    public GenericProductDto getProductById(@PathVariable("id") Long id) {
+        return this.getProductService().getProductById(id);
     }
 
 }

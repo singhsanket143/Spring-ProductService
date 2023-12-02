@@ -1,6 +1,7 @@
 package com.example.productservice.services;
 
 import com.example.productservice.models.Product;
+import com.example.productservice.viewModels.GenericProductDto;
 import org.springframework.stereotype.Service;
 
 @Service("ProductServiceImpl")
@@ -11,7 +12,7 @@ public class ProductServiceImpl implements ProductService{
      * @return
      */
     @Override
-    public String getProductById(Long id) {
-        return "Actual";
+    public GenericProductDto getProductById(Long id) {
+        return null;
     }
 }

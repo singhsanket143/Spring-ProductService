@@ -1,6 +1,7 @@
 package com.example.productservice.services;
 
 import com.example.productservice.models.Product;
+import com.example.productservice.viewModels.GenericProductDto;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,5 +15,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ProductService {
 
-    String getProductById(Long id);
+    GenericProductDto getProductById(Long id);
 }
