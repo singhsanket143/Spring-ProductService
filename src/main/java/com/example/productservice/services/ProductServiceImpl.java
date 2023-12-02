@@ -11,7 +11,7 @@ public class ProductServiceImpl implements ProductService{
      * @return
      */
     @Override
-    public Product getProductById(Long id) {
-        return null;
+    public String getProductById(Long id) {
+        return "Actual";
     }
 }

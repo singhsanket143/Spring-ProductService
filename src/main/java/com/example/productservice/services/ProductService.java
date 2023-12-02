@@ -14,5 +14,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ProductService {
 
-    Product getProductById(Long id);
+    String getProductById(Long id);
 }
