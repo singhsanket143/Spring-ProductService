@@ -4,6 +4,8 @@ import com.example.productservice.models.Product;
 import com.example.productservice.viewModels.GenericProductDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  *
  * We need an interface here because controller's usage of this product service should not be
@@ -16,4 +18,6 @@ import org.springframework.stereotype.Service;
 public interface ProductService {
 
     GenericProductDto getProductById(Long id);
+
+    List<GenericProductDto> getProducts();
 }
