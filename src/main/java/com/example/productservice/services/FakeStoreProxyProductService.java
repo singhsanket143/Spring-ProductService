@@ -25,16 +25,8 @@ public class FakeStoreProxyProductService implements ProductService{
     public GenericProductDto getProductById(Long id) {
 
         RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<FakeStoreProductDto> respone = restTemplate.getForEntity(getProductRequestUrl, FakeStoreProductDto.class, id);
-        FakeStoreProductDto product = respone.getBody();
-        GenericProductDto productResponse = new GenericProductDto();
-        productResponse.setCategory(product.getCategory());
-        productResponse.setId(product.getId());
-        productResponse.setTitle(product.getTitle());
-        productResponse.setDescription(product.getDescription());
-        productResponse.setPrice(product.getPrice());
-        productResponse.setImage(product.getImage());
-        return productResponse;
+        ResponseEntity<FakeStoreProductDto> response = restTemplate.getForEntity(getProductRequestUrl, FakeStoreProductDto.class, id);
+        return getGenericProductDto(response.getBody());
     }
 
     /**
@@ -46,16 +38,32 @@ public class FakeStoreProxyProductService implements ProductService{
         ResponseEntity<FakeStoreProductDto[]> response = restTemplate.getForEntity(getProductBaseUrl, FakeStoreProductDto[].class);
         List<GenericProductDto> result = new ArrayList<>();
         for(FakeStoreProductDto product : response.getBody()) {
-            GenericProductDto productResponse = new GenericProductDto();
-            productResponse.setCategory(product.getCategory());
-            productResponse.setId(product.getId());
-            productResponse.setTitle(product.getTitle());
-            productResponse.setDescription(product.getDescription());
-            productResponse.setPrice(product.getPrice());
-            productResponse.setImage(product.getImage());
+            GenericProductDto productResponse = getGenericProductDto(product);
             result.add(productResponse);
         }
         return result;
 
+    }
+
+    /**
+     * @param product
+     * @return
+     */
+    @Override
+    public GenericProductDto createProduct(GenericProductDto product) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<FakeStoreProductDto> response = restTemplate.postForEntity(getProductBaseUrl, product, FakeStoreProductDto.class);
+        return getGenericProductDto(response.getBody());
+    }
+
+    private GenericProductDto getGenericProductDto(FakeStoreProductDto product) {
+        GenericProductDto productResponse = new GenericProductDto();
+        productResponse.setCategory(product.getCategory());
+        productResponse.setId(product.getId());
+        productResponse.setTitle(product.getTitle());
+        productResponse.setDescription(product.getDescription());
+        productResponse.setPrice(product.getPrice());
+        productResponse.setImage(product.getImage());
+        return productResponse;
     }
 }

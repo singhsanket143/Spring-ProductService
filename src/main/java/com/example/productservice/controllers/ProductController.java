@@ -40,8 +40,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public GenericProductDto getProductById(@RequestBody GenericProductDto product) {
-        return product;
+    public GenericProductDto createProduct(@RequestBody GenericProductDto product) {
+        return this.getProductService().createProduct(product);
     }
 
 }

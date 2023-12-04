@@ -20,4 +20,6 @@ public interface ProductService {
     GenericProductDto getProductById(Long id);
 
     List<GenericProductDto> getProducts();
+
+    GenericProductDto createProduct(GenericProductDto product);
 }

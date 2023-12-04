@@ -25,4 +25,13 @@ public class ProductServiceImpl implements ProductService{
     public List<GenericProductDto> getProducts() {
         return null;
     }
+
+    /**
+     * @param product
+     * @return
+     */
+    @Override
+    public GenericProductDto createProduct(GenericProductDto product) {
+        return null;
+    }
 }
