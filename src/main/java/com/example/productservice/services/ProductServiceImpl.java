@@ -34,4 +34,13 @@ public class ProductServiceImpl implements ProductService{
     public GenericProductDto createProduct(GenericProductDto product) {
         return null;
     }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public GenericProductDto deleteProduct(Long id) {
+        return null;
+    }
 }

@@ -4,8 +4,11 @@ import com.example.productservice.models.Product;
 import com.example.productservice.viewModels.FakeStoreProductDto;
 import com.example.productservice.viewModels.GenericProductDto;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RequestCallback;
+import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
@@ -54,6 +57,19 @@ public class FakeStoreProxyProductService implements ProductService{
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDto> response = restTemplate.postForEntity(getProductBaseUrl, product, FakeStoreProductDto.class);
         return getGenericProductDto(response.getBody());
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public GenericProductDto deleteProduct(Long id) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        RequestCallback requestCallback = restTemplate.acceptHeaderRequestCallback(GenericProductDto.class);
+        ResponseExtractor<ResponseEntity<GenericProductDto>> responseExtractor = restTemplate.responseEntityExtractor(GenericProductDto.class);
+        return restTemplate.execute(getProductRequestUrl, HttpMethod.DELETE, requestCallback, responseExtractor, id).getBody();
+
     }
 
     private GenericProductDto getGenericProductDto(FakeStoreProductDto product) {
