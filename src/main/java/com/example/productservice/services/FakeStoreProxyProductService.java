@@ -18,6 +18,7 @@ public class FakeStoreProxyProductService implements ProductService{
     }
     @Override
     public GenericProductDto getProductById(Long id) {
+
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDto> respone = restTemplate.getForEntity(getProductRequestUrl, FakeStoreProductDto.class, id);
         FakeStoreProductDto product = respone.getBody();
