@@ -1,5 +1,6 @@
 package com.example.productservice.services;
 
+import com.example.productservice.exceptions.NotFoundException;
 import com.example.productservice.models.Product;
 import com.example.productservice.viewModels.GenericProductDto;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,5 @@ public interface ProductService {
 
     GenericProductDto createProduct(GenericProductDto product);
 
-    GenericProductDto deleteProduct(Long id);
+    GenericProductDto deleteProduct(Long id) throws NotFoundException;
 }

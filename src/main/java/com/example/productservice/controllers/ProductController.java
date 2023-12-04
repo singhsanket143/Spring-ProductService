@@ -1,12 +1,16 @@
 package com.example.productservice.controllers;
 
+import com.example.productservice.exceptions.NotFoundException;
 import com.example.productservice.services.ProductService;
+import com.example.productservice.viewModels.ExceptionDto;
 import com.example.productservice.viewModels.GenericProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,7 +49,20 @@ public class ProductController {
     }
 
     @DeleteMapping ( "/{id}")
-    public GenericProductDto deleteProductById(@PathVariable("id") Long id) {
-        return this.getProductService().deleteProduct(id);
+    public ResponseEntity<GenericProductDto> deleteProductById(@PathVariable("id") Long id) throws NotFoundException {
+        return new ResponseEntity<>(this.getProductService().deleteProduct(id), HttpStatus.OK);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    private ResponseEntity<ExceptionDto> handleNoteException(NotFoundException ne) {
+        return new ResponseEntity<>(new ExceptionDto(HttpStatus.NOT_FOUND, ne.getMessage()), HttpStatus.NOT_FOUND);
     }
 }
+
+
+
+
+
+
+
+

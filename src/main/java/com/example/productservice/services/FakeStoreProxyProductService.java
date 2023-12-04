@@ -1,5 +1,6 @@
 package com.example.productservice.services;
 
+import com.example.productservice.exceptions.NotFoundException;
 import com.example.productservice.models.Product;
 import com.example.productservice.viewModels.FakeStoreProductDto;
 import com.example.productservice.viewModels.GenericProductDto;
@@ -64,12 +65,15 @@ public class FakeStoreProxyProductService implements ProductService{
      * @return
      */
     @Override
-    public GenericProductDto deleteProduct(Long id) {
+    public GenericProductDto deleteProduct(Long id) throws NotFoundException {
         RestTemplate restTemplate = restTemplateBuilder.build();
         RequestCallback requestCallback = restTemplate.acceptHeaderRequestCallback(GenericProductDto.class);
         ResponseExtractor<ResponseEntity<GenericProductDto>> responseExtractor = restTemplate.responseEntityExtractor(GenericProductDto.class);
-        return restTemplate.execute(getProductRequestUrl, HttpMethod.DELETE, requestCallback, responseExtractor, id).getBody();
-
+        GenericProductDto response =  restTemplate.execute(getProductRequestUrl, HttpMethod.DELETE, requestCallback, responseExtractor, id).getBody();
+        if(response == null) {
+            throw new NotFoundException("No product with id " + id + " found");
+        }
+        return response;
     }
 
     private GenericProductDto getGenericProductDto(FakeStoreProductDto product) {
