@@ -1,9 +1,9 @@
 package com.example.productservice.repositories;
 
-import com.example.productservice.models.Price;
+import com.example.productservice.models.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PriceRepository extends JpaRepository<Price, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 }
