@@ -13,7 +13,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Product findByTitleEquals(String title);
 
-    Product findByTitleEqualsAndPrice_PriceOrderByPrice_price(String title);
+    Product findByTitleEqualsAndPrice_PriceOrderByPrice_price(String title, double price);
 
     List<Product> findAllByPrice_Currency(String currency);
 
@@ -25,6 +25,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = ProductQueries.FIND_ALL_BY_TITLE , nativeQuery = true)
     List<Product> findAllByTitle(String title);
 
-    @Query("select Product from Product where Product.price.currency = :currency and Product.title = :title")
+    @Query("SELECT p FROM Product p JOIN p.price pr WHERE pr.currency = :currency AND p.title = :title")
     List<Product> someOperation(String title, String currency);
 }

@@ -70,15 +70,4 @@ public class FakeStoreProxyProductService implements ProductService{
         FakeStoreDtoToGenericDtoAdapter fakeStoreDtoToGenericDtoAdapter = new FakeStoreDtoToGenericDtoAdapter(fakeStoreProductServiceApi.deleteProduct(id));
         return fakeStoreDtoToGenericDtoAdapter.convertToGenericProductDto();
     }
-
-    private GenericProductDto getGenericProductDto(FakeStoreProductDto product) {
-        GenericProductDto productResponse = new GenericProductDto();
-        productResponse.setCategory(product.getCategory());
-        productResponse.setId(product.getId());
-        productResponse.setTitle(product.getTitle());
-        productResponse.setDescription(product.getDescription());
-        productResponse.setPrice(product.getPrice());
-        productResponse.setImage(product.getImage());
-        return productResponse;
-    }
 }
